@@ -19,11 +19,11 @@ app.use(cors());
 app.use(express.json());
 
 // 静态文件服务
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 // 根路径重定向到HTML文件
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // 获取飞书访问令牌

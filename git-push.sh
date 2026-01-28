@@ -9,9 +9,12 @@ if [ ! -d ".git" ]; then
     exit 1
 fi
 
-# 添加所有更改的文件
+# 添加所有更改的文件，排除 .env 文件
 echo "添加所有更改的文件..."
 git add .
+git reset HEAD -- .env
+echo "已排除 .env 文件，不会上传敏感信息"
+
 
 # 检查是否有更改
 if git diff --cached --quiet; then
