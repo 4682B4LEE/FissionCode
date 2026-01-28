@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>2026 TDengine TCP-BP 认证邀请活动榜单</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <style>
+       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+       body {
+           font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+           background-color: #f5f5f7;
+           color: #1d1d1f;
+           -webkit-font-smoothing: antialiased;
+       }
+
+       .apple-nav {
+           background: rgba(0, 0, 0, 0.8);
+           backdrop-filter: saturate(180%) blur(20px);
+           -webkit-backdrop-filter: saturate(180%) blur(20px);
+           height: 44px;
+           position: fixed;
+           top: 0;
+           width: 100%;
+           z-index: 9999;
+       }
+
+       .hero-title {
+           font-size: 56px;
+           font-weight: 700;
+           letter-spacing: -0.015em;
+           line-height: 1.07;
+       }
+
+       .tab-button {
+           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+       }
+
+       .active-tab {
+           background-color: white;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+           color: #1d1d1f !important;
+       }
+
+       /* 隐藏滚动条但保留功能 */
+       .no-scrollbar::-webkit-scrollbar { display: none; }
+       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+       .search-input {
+           background: rgba(255, 255, 255, 0.8);
+           border: 1px solid #d2d2d7;
+           transition: all 0.2s ease;
+       }
+
+       .search-input:focus {
+           background: #ffffff;
+           border-color: #0071e3;
+           box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+       }
+   </style>
+</head>
+<body class="pt-11">
+
+   <!-- 导航栏 -->
+   <nav class="apple-nav">
+       <div class="max-w-[1024px] mx-auto px-4 h-full flex items-center justify-between text-[#f5f5f7] text-xs font-light">
+           <div class="flex items-center space-x-8">
+               <a href="#" class="flex items-center">
+                   <img src="images/logo.png" alt="TDengine" class="h-5">
+               </a>
+               <a href="rules.html" class="hidden md:block opacity-80 hover:opacity-100">活动规则</a>
+               <a href="index.html" class="hidden md:block font-medium opacity-100">邀请排行榜</a>
+               <a href="claim.html" class="hidden md:block opacity-80 hover:opacity-100">马克杯/实体证书领取</a>
+               <a href="https://www.taosdata.com/" class="hidden md:block opacity-80 hover:opacity-100">前往 TDengine 官网</a>
+               <a href="https://learn.taosdata.com/certifications/tcp-bp" class="hidden md:block opacity-80 hover:opacity-100">前往 TCP-BP 认证</a>
+           </div>
+           <div class="flex items-center space-x-6">
+               <a href="http://gk.link/a/12GBD" target="_blank" class="bg-[#0071e3] text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-[#0077ed] transition-colors shadow-sm">
+                   领取邀请码
+               </a>
+           </div>
+       </div>
+   </nav>
+
+   <!-- 主体内容 -->
+   <main class="max-w-[1024px] mx-auto px-6 py-12">
+       
+       <!-- 标题区 -->
+       <header class="text-center mb-16 mt-8">
+           <h1 class="hero-title mb-6">2026 TCP-BP 认证活动邀请实时榜单</h1>
+           <p class="text-[#86868b] text-xl max-w-2xl mx-auto leading-tight">
+               连接开发者，见证共建力量。实时查看邀请排名并获取您的专属代码。
+           </p>
+       </header>
+
+       <!-- 分段切换器 -->
+       <div class="flex justify-center mb-12">
+           <div class="bg-[#e3e3e8] p-1 rounded-full flex space-x-1 w-full max-w-[320px]">
+               <button onclick="switchTab('leaderboard')" id="btn-leaderboard" class="tab-button flex-1 py-1.5 px-4 rounded-full text-sm font-medium active-tab">
+                   排行榜
+               </button>
+               <button onclick="switchTab('query')" id="btn-query" class="tab-button flex-1 py-1.5 px-4 rounded-full text-sm font-medium text-[#6e6e73]">
+                   查询邀请码
+               </button>
+           </div>
+       </div>
+
+       <!-- 视图 1: 排行榜 -->
+       <section id="view-leaderboard" class="block">
+           <!-- 窄款搜索框 -->
+           <div class="flex justify-center mb-10">
+               <div class="relative w-full max-w-[400px]">
+                   <span class="absolute inset-y-0 left-3 flex items-center">
+                       <svg class="w-4 h-4 text-[#86868b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                   </span>
+                   <input type="text" id="nameSearch" oninput="filterLeaderboard()" placeholder="搜索邀请人姓名..." class="search-input w-full pl-10 pr-4 py-2.5 rounded-xl text-sm outline-none">
+               </div>
+           </div>
+
+           <!-- 数据表格 -->
+           <div class="bg-white rounded-3xl border border-[#d2d2d7]/50 overflow-hidden shadow-sm">
+               <table class="w-full text-left">
+                   <thead>
+                       <tr class="bg-[#f5f5f7]/50 border-b border-[#d2d2d7] text-[#86868b] text-[10px] font-semibold uppercase tracking-widest">
+                           <th class="px-8 py-5 w-24 text-center">排名</th>
+                           <th class="px-6 py-5">邀请人姓名</th>
+                           <th class="px-6 py-5">邀请码</th>
+                           <th class="px-8 py-5 text-right">邀请人数</th>
+                       </tr>
+                   </thead>
+                   <tbody id="leaderboardBody" class="divide-y divide-[#d2d2d7]/40 text-sm">
+                       <!-- JS 填充 -->
+                   </tbody>
+               </table>
+           </div>
+       </section>
+
+       <!-- 视图 2: 查询邀请码 -->
+       <section id="view-query" class="hidden">
+           <div class="max-w-md mx-auto">
+               <div class="bg-white rounded-3xl border border-[#d2d2d7]/50 p-10 shadow-sm text-center">
+                   <div class="w-16 h-16 bg-[#f5f5f7] rounded-full flex items-center justify-center mx-auto mb-6">
+                       <svg class="w-8 h-8 text-[#1d1d1f]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                   </div>
+                   <h3 class="text-2xl font-bold mb-2">获取您的邀请码</h3>
+                   <p class="text-[#86868b] text-sm mb-8">输入您预留的手机号进行快速找回</p>
+                   
+                   <input type="tel" id="phoneInput" placeholder="请输入手机号" class="search-input w-full px-6 py-4 rounded-2xl text-lg text-center outline-none mb-4">
+                   <button onclick="handlePhoneSearch()" class="w-full bg-[#0071e3] text-white py-4 rounded-2xl font-semibold hover:bg-[#0077ed] transition-colors">
+                       立即查询
+                   </button>
+
+                   <div id="queryResult" class="hidden mt-8 pt-8 border-t border-[#d2d2d7]/50 animate-fade">
+                       <!-- 查询结果 -->
+                   </div>
+               </div>
+               <p class="text-center text-xs text-[#86868b] mt-6">查询注意不要留空格</p>
+           </div>
+       </section>
+
+   </main>
+
+   <footer class="max-w-[1024px] mx-auto px-6 py-12 border-t border-[#d2d2d7] text-[#86868b] text-[11px]">
+       <div class="mb-4">数据统计截止至 <span id="updateTime"></span>。参与活动即表示同意《2026 TDengine 认证邀新计划活动规则》。</div>
+       <div class="flex justify-between items-center">
+           <div>© 2017-2026 涛思数据 新版时序数据库 TDengine Database v3.0</div>
+           <div class="flex space-x-4">
+               <a href="https://www.taosdata.com/privacy" target="_blank" class="hover:underline">隐私政策</a>
+               <a href="rules.html" class="hover:underline">活动规则</a>
+           </div>
+       </div>
+
+       <script>
+           // 自动更新数据截止时间
+           function updateCutoffTime() {
+               const now = new Date();
+               const year = now.getFullYear();
+               const month = now.getMonth() + 1;
+               const day = now.getDate();
+               const formattedDate = `${year}年${month.toString().padStart(2, '0')}月${day.toString().padStart(2, '0')}日0点`;
+               document.getElementById('updateTime').textContent = formattedDate;
+           }
+           
+           // 初始更新
+           updateCutoffTime();
+           
+           // 每小时检查一次，确保日期正确
+           setInterval(updateCutoffTime, 3600000);
+       </script>
+   </footer>
+
+   <script>
+       // 飞书API配置
+       const feishuConfig = {
+           apiProxyUrl: '/' // 后端代理API地址
+       };
+
+       // 存储排行榜数据
+       let leaderboardData = [];
+
+       // 从飞书API获取排行榜数据
+       async function fetchRankingData() {
+           try {
+               console.log('获取排行榜数据...');
+               const response = await fetch(`${feishuConfig.apiProxyUrl}feishu/ranking`);
+               const data = await response.json();
+               
+               if (data.success) {
+                   console.log('获取排行榜数据成功:', data.data);
+                   // 转换数据格式
+                   leaderboardData = data.data.map(item => ({
+                       name: item.name,
+                       code: item.inviteCode,
+                       count: item.inviteCount
+                   }));
+                   return leaderboardData;
+               } else {
+                   console.error('获取排行榜数据失败:', data.message);
+                   return [];
+               }
+           } catch (error) {
+               console.error('获取排行榜数据出错:', error);
+               return [];
+           }
+       }
+
+       // 排序函数：按邀请人数降序，如果相同则按姓名升序
+       function sortData(data) {
+           return data.sort((a, b) => {
+               if (a.count === b.count) {
+                   return a.name.localeCompare(b.name);
+               } else {
+                   return b.count - a.count;
+               }
+           });
+       }
+
+       // 渲染排行榜表格
+       function renderTable(filter = "") {
+           const body = document.getElementById('leaderboardBody');
+           body.innerHTML = "";
+           
+           let filtered = [...leaderboardData];
+           
+           // 应用搜索过滤
+           if (filter) {
+               filtered = filtered.filter(item =>
+                   item.name.toLowerCase().includes(filter.toLowerCase())
+               );
+           }
+
+           // 排序
+           const sortedData = sortData(filtered);
+
+           if(sortedData.length === 0) {
+               body.innerHTML = `<tr><td colspan="4" class="px-8 py-10 text-center text-[#86868b]">未找到相关数据</td></tr>`;
+               return;
+           }
+
+           sortedData.forEach((item, index) => {
+               const row = document.createElement('tr');
+               row.className = "hover:bg-[#f5f5f7]/50 transition-colors";
+               
+               // 排名样式处理
+               let rankDisplay = index + 1;
+               if(index === 0) rankDisplay = `<span class="inline-flex items-center justify-center w-7 h-7 bg-yellow-400 text-white rounded-full font-bold">1</span>`;
+               if(index === 1) rankDisplay = `<span class="inline-flex items-center justify-center w-7 h-7 bg-slate-300 text-white rounded-full font-bold">2</span>`;
+               if(index === 2) rankDisplay = `<span class="inline-flex items-center justify-center w-7 h-7 bg-orange-300 text-white rounded-full font-bold">3</span>`;
+
+               row.innerHTML = `
+                   <td class="px-8 py-5 text-center font-medium">${rankDisplay}</td>
+                   <td class="px-6 py-5 font-semibold text-[#1d1d1f]">${item.name}</td>
+                   <td class="px-6 py-5"><code class="bg-[#f5f5f7] px-2 py-1 rounded-md font-mono text-blue-600">${item.code}</code></td>
+                   <td class="px-8 py-5 text-right font-medium text-base">${item.count}</td>
+               `;
+               body.appendChild(row);
+           });
+       }
+
+       // 切换标签
+       function switchTab(tab) {
+           const isLeader = tab === 'leaderboard';
+           document.getElementById('view-leaderboard').className = isLeader ? 'block' : 'hidden';
+           document.getElementById('view-query').className = isLeader ? 'hidden' : 'block';
+           
+           document.getElementById('btn-leaderboard').className = `tab-button flex-1 py-1.5 px-4 rounded-full text-sm font-medium ${isLeader ? 'active-tab' : 'text-[#6e6e73]'}`;
+           document.getElementById('btn-query').className = `tab-button flex-1 py-1.5 px-4 rounded-full text-sm font-medium ${!isLeader ? 'active-tab' : 'text-[#6e6e73]'}`;
+       }
+
+       // 搜索过滤
+       function filterLeaderboard() {
+           const val = document.getElementById('nameSearch').value;
+           renderTable(val);
+       }
+
+       // 验证手机号格式
+       function validatePhone(phone) {
+           const phoneRegex = /^1[3-9]\d{9}$/;
+           return phoneRegex.test(phone);
+       }
+
+       // 手机号查询邀请码
+       async function handlePhoneSearch() {
+           const phone = document.getElementById('phoneInput').value;
+           const resultDiv = document.getElementById('queryResult');
+           
+           // 验证手机号格式
+           if (!validatePhone(phone)) {
+               resultDiv.classList.remove('hidden');
+               resultDiv.innerHTML = `<p class="text-red-500 font-medium">请输入正确的手机号格式</p>`;
+               return;
+           }
+           
+           // 显示加载状态
+           resultDiv.classList.remove('hidden');
+           resultDiv.innerHTML = `<p class="text-[#86868b]">查询中...请稍候</p>`;
+           
+           try {
+               // 调用后端API查询邀请码
+               const response = await fetch(`${feishuConfig.apiProxyUrl}feishu/search`, {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify({ phone })
+               });
+               const data = await response.json();
+               
+               if (data.success) {
+                   // 查找该邀请码在排行榜中的位置
+                   const user = leaderboardData.find(item => item.code === data.code);
+                   const rank = user ? leaderboardData.indexOf(user) + 1 : '未上榜';
+                   const count = user ? user.count : 0;
+                   
+                   resultDiv.innerHTML = `
+                       <div class="text-[#86868b] text-xs uppercase mb-1">查询结果</div>
+                       <div class="text-xl font-bold mb-4">${user ? user.name : '未知用户'}</div>
+                       <div class="bg-[#f5f5f7] p-6 rounded-2xl mb-4">
+                           <div class="text-xs text-[#86868b] mb-1">您的专属邀请码</div>
+                           <div class="text-4xl font-bold text-[#0071e3] tracking-tighter">${data.code}</div>
+                       </div>
+                       <div class="flex justify-between text-sm px-2 text-[#1d1d1f]">
+                           <span>当前排名: <b>${rank}</b></span>
+                           <span>累计邀请: <b>${count} 人</b></span>
+                       </div>
+                   `;
+               } else {
+                   resultDiv.innerHTML = `<p class="text-red-500 font-medium">${data.message || '未找到该手机号关联的认证记录'}</p>`;
+               }
+           } catch (error) {
+               console.error('查询邀请码失败:', error);
+               resultDiv.innerHTML = `<p class="text-red-500 font-medium">网络错误，请稍后重试</p>`;
+           }
+       }
+
+       // 初始化页面
+       async function initPage() {
+           // 显示加载状态
+           const body = document.getElementById('leaderboardBody');
+           body.innerHTML = `<tr><td colspan="4" class="px-8 py-10 text-center text-[#86868b]">加载中...请稍候</td></tr>`;
+           
+           try {
+               // 从API获取数据
+               await fetchRankingData();
+               renderTable();
+           } catch (error) {
+               console.error('初始化页面失败:', error);
+               body.innerHTML = `<tr><td colspan="4" class="px-8 py-10 text-center text-red-500">加载失败，请稍后重试</td></tr>`;
+           }
+       }
+
+       // 初始运行
+       initPage();
+   </script>
+</body>
+</html>

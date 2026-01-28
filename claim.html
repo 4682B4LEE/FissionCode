@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>马克杯/实体证书领取 - TDengine 认证邀新计划</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* 导航栏样式 */
+        .apple-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            height: 44px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+        
+        /* 卡片悬停效果 */
+        .image-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .image-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* 图片悬停缩放效果 */
+        .image-container {
+            transition: transform 0.5s ease;
+            overflow: hidden;
+        }
+        .image-card:hover .image-container img {
+            transform: scale(1.05);
+        }
+        
+        /* 按钮样式 */
+        .apple-btn {
+            transition: all 0.3s ease;
+        }
+        .apple-btn:hover {
+            transform: translateY(-2px);
+            background-color: #0077ed;
+        }
+        
+        /* 步骤卡片样式 */
+        .step-card {
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 渐入动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+    </style>
+</head>
+<body class="pt-11">
+    <!-- 导航栏 -->
+    <nav class="apple-nav">
+        <div class="max-w-[1024px] mx-auto px-4 h-full flex items-center justify-between text-[#f5f5f7] text-xs font-light">
+            <div class="flex items-center space-x-8">
+                <a href="index.html" class="flex items-center">
+                    <img src="images/logo.png" alt="TDengine" class="h-5">
+                </a>
+                <a href="rules.html" class="hidden md:block opacity-80 hover:opacity-100">活动规则</a>
+                <a href="index.html" class="hidden md:block opacity-80 hover:opacity-100">邀请排行榜</a>
+                <a href="claim.html" class="hidden md:block font-medium opacity-100">马克杯/实体证书领取</a>
+                <a href="https://www.taosdata.com/" class="hidden md:block opacity-80 hover:opacity-100">前往 TDengine 官网</a>
+                <a href="https://learn.taosdata.com/certifications/tcp-bp" class="hidden md:block opacity-80 hover:opacity-100">前往 TCP-BP 认证</a>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="http://gk.link/a/12GBD" target="_blank" class="bg-[#0071e3] text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-[#0077ed] transition-colors shadow-sm">
+                    领取邀请码
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <main class="max-w-[1024px] mx-auto px-4 py-16">
+        <!-- 标题区域 -->
+        <div class="text-center mb-16 fade-in">
+            <h1 class="text-4xl font-semibold mb-4">马克杯/实体证书领取</h1>
+            <p class="text-gray-500 text-lg max-w-2xl mx-auto">
+                新用户完成认证后，即可领取 TDengine 定制马克杯或 TCP-BP 实体证书
+            </p>
+        </div>
+
+        <!-- 领取流程 -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 mb-16 fade-in delay-1">
+            <h2 class="text-2xl font-semibold mb-8 text-center">领取流程</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 步骤 1 -->
+                <div class="step-card text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="w-16 h-16 bg-[#0071e3] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                        1
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">完成认证</h3>
+                    <p class="text-gray-500">
+                        新用户前往 TDengine TCP-BP 认证页面完成学习和考试
+                    </p>
+                </div>
+                
+                <!-- 步骤 2 -->
+                <div class="step-card text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="w-16 h-16 bg-[#0071e3] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                        2
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">关注 TDengine 公众号</h3>
+                    <p class="text-gray-500">
+                        微信搜索 TDengine 并关注官方公众号
+                    </p>
+                </div>
+                
+                <!-- 步骤 3 -->
+                <div class="step-card text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="w-16 h-16 bg-[#0071e3] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                        3
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">发送私信</h3>
+                    <p class="text-gray-500">
+                        后台向公众号发送“认证”，填写表单领取礼品
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 公众号关注引导 -->
+        <div class="mb-16 fade-in delay-2">
+            <h2 class="text-2xl font-semibold mb-8 text-center">关注 TDengine 官方公众号</h2>
+            <p class="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+                关注 TDengine 官方公众号，并在后台私信获取表单
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 引导关注公众号的图片 -->
+                <div class="image-card">
+                    <div class="image-container h-[400px] overflow-hidden rounded-2xl">
+                        <img src="images/tdengine.png" alt="关注 TDengine 官方公众号" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4 text-center pb-6">
+                        <h3 class="text-lg font-medium mb-2">微信搜索</h3>
+                        <p class="text-gray-500 text-sm">
+                            关注TDengine公众号
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 公众号私信截图 -->
+                <div class="image-card">
+                    <div class="image-container h-[400px] overflow-hidden rounded-2xl">
+                        <img src="images/sixin.png" alt="公众号私信截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4 text-center pb-6">
+                        <h3 class="text-lg font-medium mb-2">发送私信</h3>
+                        <p class="text-gray-500 text-sm">
+                            私信 "认证" 获取领取链接
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 领取说明 -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 mb-16 fade-in delay-3">
+            <h2 class="text-2xl font-semibold mb-6">领取说明</h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="w-6 h-6 bg-[#0071e3] rounded-full flex items-center justify-center text-white text-xs font-bold mr-4 mt-0.5 flex-shrink-0">
+                        •
+                    </div>
+                    <p class="text-gray-600">
+                        活动对象：2026年1月1日之后完成 TDengine TCP-BP 认证的新用户
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-6 h-6 bg-[#0071e3] rounded-full flex items-center justify-center text-white text-xs font-bold mr-4 mt-0.5 flex-shrink-0">
+                        •
+                    </div>
+                    <p class="text-gray-600">
+                        领取选择：每位新用户可在 TDengine 定制马克杯和 TCP-BP 实体证书中选择其一
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-6 h-6 bg-[#0071e3] rounded-full flex items-center justify-center text-white text-xs font-bold mr-4 mt-0.5 flex-shrink-0">
+                        •
+                    </div>
+                    <p class="text-gray-600">
+                        信息提交：关注公众号后，私信 "认证" 获取领取链接，填写您的真实姓名、手机号和邮寄地址
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-6 h-6 bg-[#0071e3] rounded-full flex items-center justify-center text-white text-xs font-bold mr-4 mt-0.5 flex-shrink-0">
+                        •
+                    </div>
+                    <p class="text-gray-600">
+                        审核时间：提交信息后，我们将在活动结束后进行审核
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-6 h-6 bg-[#0071e3] rounded-full flex items-center justify-center text-white text-xs font-bold mr-4 mt-0.5 flex-shrink-0">
+                        •
+                    </div>
+                    <p class="text-gray-600">
+                        发放时间：审核通过后，我们预计4月底之前发放所有礼品
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 常见问题 -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 fade-in delay-4">
+            <h2 class="text-2xl font-semibold mb-6">常见问题</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-medium mb-2">如何确认我是否符合领取条件？</h3>
+                    <p class="text-gray-600">
+                        前往 TDengine 认证页面【个人中心】查看证书领取时间，在2026年1月1日之后即可符合领取条件。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-2">马克杯和实体证书可以同时领取吗？</h3>
+                    <p class="text-gray-600">
+                        每位新用户只能选择领取其中一项礼品，不可同时领取。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-2">提交信息后多久可以收到礼品？</h3>
+                    <p class="text-gray-600">
+                        活动第一阶段于2026年3月31日结束，审核通过后，我们将在4月底之前为您发放礼品。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="max-w-[1024px] mx-auto px-6 py-12 border-t border-[#d2d2d7] text-[#86868b] text-[11px] mt-16">
+        <div class="mb-4">数据统计截止至 <span id="updateTime"></span>。参与活动即表示同意《2026 TDengine 认证邀新计划活动规则》。</div>
+        <div class="flex justify-between items-center">
+            <div>© 2017-2026 涛思数据 新版时序数据库 TDengine Database v3.0</div>
+            <div class="flex space-x-4">
+                <a href="rules.html" class="hover:underline">活动规则</a>
+                <a href="index.html" class="hover:underline">邀请排行榜</a>
+                <a href="claim.html" class="hover:underline">礼品领取</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 自动更新时间
+        function updateCutoffTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const formattedDate = `${year}年${month.toString().padStart(2, '0')}月${day.toString().padStart(2, '0')}日0点`;
+            document.getElementById('updateTime').textContent = formattedDate;
+        }
+        
+        // 初始更新
+        updateCutoffTime();
+        
+        // 每小时检查一次，确保日期正确
+        setInterval(updateCutoffTime, 3600000);
+        
+        // 为元素添加渐入动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                // 触发重排
+                element.offsetHeight;
+                // 添加动画类
+                element.style.animationPlayState = 'running';
+            });
+        });
+    </script>
+</body>
+</html>
